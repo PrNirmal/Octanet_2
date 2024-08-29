@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Responsive To-Do List</h1>
+        <div class="input-group">
+            <input type="text" id="task-input" placeholder="Enter a new task">
+            <button id="add-task">Add</button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('task-input');
+        const addTaskButton = document.getElementById('add-task');
+        const taskList = document.getElementById('task-list');
+
+        let tasks = [];
+
+        function renderTasks() {
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
+                    <div class="button-group">
+                        <button onclick="toggleComplete(${index})" style="background-color: ${task.completed ? '#4CAF50' : '#ccc'}">✓</button>
+                        <button onclick="editTask(${index})" style="background-color: #2196F3">Edit</button>
+                        <button onclick="deleteTask(${index})" style="background-color: #f44336">Delete</button>
+                    </div>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (text) {
+                tasks.push({ text, completed: false });
+                taskInput.value = '';
+                renderTasks();
+            }
+        }
+
+        function toggleComplete(index) {
+            tasks[index].completed = !tasks[index].completed;
+            renderTasks();
+        }
+
+        function editTask(index) {
+            const li = taskList.children[index];
+            const taskText = li.querySelector('.task-text');
+            const currentText = tasks[index].text;
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentText;
+            input.classList.add('edit-input');
+            
+            taskText.replaceWith(input);
+            input.focus();
+
+            input.addEventListener('blur', function() {
+                const newText = this.value.trim();
+                if (newText && newText !== currentText) {
+                    tasks[index].text = newText;
+                }
+                renderTasks();
+            });
+
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    this.blur();
+                }
+            });
+        }
+
+        function deleteTask(index) {
+            const li = taskList.children[index];
+            li.classList.add('delete-animation');
+            li.addEventListener('animationend', () => {
+                tasks.splice(index, 1);
+                renderTasks();
+            });
+        }
+
+        addTaskButton.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        renderTasks();
+    </script>
+</body>
+</html>
