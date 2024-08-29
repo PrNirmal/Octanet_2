@@ -1,0 +1,144 @@
+* {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            animation: fadeIn 1s ease-out;
+            font-size: 2rem;
+        }
+        .input-group {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #task-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 2px solid #4CAF50;
+            border-radius: 4px 0 0 4px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        #task-input:focus {
+            outline: none;
+            box-shadow: 0 0 5px #4CAF50;
+        }
+        #add-task {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        #add-task:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease-out;
+            transition: all 0.3s ease;
+            flex-wrap: wrap;
+        }
+        li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .task-text {
+            flex-grow: 1;
+            margin-right: 10px;
+            word-break: break-word;
+        }
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+        .edit-input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        button {
+            margin: 2px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .delete-animation {
+            animation: fadeOut 0.3s ease-out;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            #task-input, #add-task {
+                font-size: 0.9rem;
+            }
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .task-text {
+                margin-right: 0;
+                margin-bottom: 10px;
+                width: 100%;
+            }
+            .button-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
